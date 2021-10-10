@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import s from './ContactForm.module.css';
+import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
 
 class ContactForm extends Component {
@@ -18,13 +19,15 @@ class ContactForm extends Component {
     };
 
     handleSubmit = e => {
+        const { name, number } = this.state;
         e.preventDefault();
 
-        this.props.onSubmitData({
-            name: this.state.name,
-            number: this.state.number,
-        });
-
+        const contact = {
+            id: uuidv4(),
+            name,
+            number,
+        };
+        this.props.onSubmitData(contact);
         this.reset();
     };
 
